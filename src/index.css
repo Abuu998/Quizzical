@@ -114,6 +114,7 @@ img {
 }
 
 .right-answers {
+    margin-top: 2rem;
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -126,4 +127,34 @@ img {
 
 .less-than-three {
     color: red;
+}
+
+@media screen and (max-width: 600px) {
+    .item {
+        border: 1px solid var(--btn);
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25);
+    }
+    
+    .item + .item {
+        margin-top: 2rem;
+    }
+
+    hr {
+        display: none;
+    }
+
+    .question {
+        margin-bottom: 1rem;
+    }
+
+    .answers {
+        flex-direction: column;
+        align-items: stretch; 
+    }
+
+    .ans {
+        padding-block: 0.5rem;
+    }
 }
