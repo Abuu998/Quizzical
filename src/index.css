@@ -84,7 +84,7 @@ img {
 }
 
 .btn:hover,
-.btn:focus {
+.btn:focus-visible {
     background-color: var(--second);
 }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
 import getQuestions from "./api"
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import '../index.css'
 
 export function loader() {
@@ -10,29 +10,22 @@ export function loader() {
 
 function Page() {
     const data = useLoaderData()
-    let questions;
-    
     const [checked, setChecked] = useState(false)
     const [restart, setRestart] = useState(false)
     const [count, setCount] = useState(0)
 
-    // useEffect(() => {
-    //     fetch("https://opentdb.com/api.php?amount=5&category=21&type=multiple")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setQuestions(
-    //                     data.results.
-    //                 )
-    //         })
-    //         .catch(err => console.log(err));
-    // }, [restart])
-
-    questions = data.map(el => ({
+    const correctedData = data.map(el => ({
         id: nanoid(),
         question: el.question,
         correct: el.correct_answer,
         allAnswers: makeAnswer([...el.incorrect_answers, el.correct_answer].sort())
-    }))
+    }));
+
+    const [questions, setQuestions] = useState(correctedData)
+    
+    useEffect(() => {
+        setQuestions(correctedData)
+    }, [restart])
 
     function makeAnswer(arr) {
         const newArr = []
@@ -48,8 +41,7 @@ function Page() {
     }
     
     function answerClicked(answerId, questionId) {
-
-        questions = questions.map(el => {
+        setQuestions(questions.map(el => {
             if (el.id === questionId) {
                 const allNew = el.allAnswers.map(e => {
                     if (e.id === answerId) {
@@ -87,7 +79,7 @@ function Page() {
                 return el
             }
             
-        })
+        }))
     }
 
     function handleCheck() {
@@ -107,7 +99,7 @@ function Page() {
         setRestart(old => !old)
     }
 
-    questions = questions.map(el => {
+    const displayQuestions = questions.map(el => {
         let res = el.allAnswers.map(e => {
             
             const sel = {
@@ -117,6 +109,7 @@ function Page() {
             const truth = {
                 backgroundColor: e.tr && e.selected || e.tr && !e.selected ? "#94D7A2" : e.selected && !e.tr ? "#F8BCBC" : "transparent"
             }
+
             return (
                 <p 
                     key={e.id}
@@ -142,19 +135,26 @@ function Page() {
         )
     })
 
-    
-    // console.log(questions)
-
     return (
         <div className="container">
-            {questions}
-            {checked && <p className="right-answers">Right answers: <span className={count < 3 ? "less-than-three" : "three-or-more"}>{count}</span>/5</p>}
-            <button 
+            {displayQuestions}
+            {
+                checked && <p className="right-answers">Right answers: 
+                    <span 
+                        className={count < 3 ? "less-than-three" : "three-or-more"}
+                    >
+                        {count}
+                    </span>/5
+                </p>
+            }
+
+            <Link
+                to="."
                 onClick={!checked ? handleCheck : restartGame}
                 className="btn"
             >
                 {!checked ? "Check answers" : "Play again"}
-            </button>
+            </Link>
         </div>
     )
 }
