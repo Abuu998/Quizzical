@@ -159,13 +159,23 @@ function Page() {
                 </p>
             }
 
-            <Link
-                to="."
-                onClick={!checked ? handleCheck : restartGame}
-                className="btn"
-            >
-                {!checked ? "Check answers" : "Play again"}
-            </Link>
+            <div className="links">
+                <Link
+                    to="."
+                    onClick={!checked ? handleCheck : restartGame}
+                    className="btn"
+                >
+                    {!checked ? "Check answers" : "Play again"}
+                </Link>
+
+                <Link
+                    to=".."
+                    className="btn"
+                >
+                    Exit
+                </Link>
+            </div>
+
         </div>
     )
 }
