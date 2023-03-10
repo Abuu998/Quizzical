@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
+import Confetti from "react-confetti"
+import { useWindowSize } from "react-use"
 import getQuestions from "./api"
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom"
 import '../index.css'
 
 export function loader() {
@@ -13,6 +15,7 @@ function Page() {
     const [checked, setChecked] = useState(false)
     const [restart, setRestart] = useState(false)
     const [count, setCount] = useState(0)
+    const { width, height } = useWindowSize()
 
     const correctedData = data.map(el => ({
         id: nanoid(),
@@ -137,6 +140,14 @@ function Page() {
 
     return (
         <div className="container">
+            {
+                checked && count >= 4 ? 
+                <Confetti
+                    width={width}
+                    height={height}
+                /> 
+                : ""
+            }
             {displayQuestions}
             {
                 checked && <p className="right-answers">Right answers: 
