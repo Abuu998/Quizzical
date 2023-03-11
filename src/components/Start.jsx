@@ -1,17 +1,18 @@
+import { Link } from 'react-router-dom'
 import '../index.css'
 
-function Start(props) {
+function Start() {
 
     return (
         <div className="container">
             <h1 className="main-heading">Quizzical</h1>
             <p className="text-support">Test your knowledge on sports</p>
-            <button 
-                onClick={props.handleStart} 
+            <Link
+                to="questions"
                 className="btn"
             >
                 Start quiz
-            </button>
+            </Link>
         </div>
     )
 }
