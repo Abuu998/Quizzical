@@ -6,8 +6,14 @@ import getQuestions from "./api"
 import { useLoaderData, Link } from "react-router-dom"
 import '../index.css'
 
-export function loader() {
-    return getQuestions();
+export async function loader() {
+    try {
+        const data = await getQuestions();
+        return data;
+    }
+    catch(err) {
+        return err.message
+    }
 }
 
 function Page() {
