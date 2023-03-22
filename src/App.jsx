@@ -12,7 +12,6 @@ import Start from "./components/Start"
 import Error from "./components/Error"
 import './index.css'
 
-
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/">
