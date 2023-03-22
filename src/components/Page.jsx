@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 import { useWindowSize } from "react-use"
-import getQuestions from "./api"
+import { getQuestions } from "./api"
 import { useLoaderData, Link } from "react-router-dom"
 import '../index.css'
 
@@ -12,14 +12,13 @@ export async function loader() {
         return data;
     }
     catch(err) {
-        return err.message
+        return { error: err }
     }
 }
 
 function Page() {
     const data = useLoaderData()
     const [checked, setChecked] = useState(false)
-    const [restart, setRestart] = useState(false)
     const [count, setCount] = useState(0)
     const { width, height } = useWindowSize()
 
@@ -31,10 +30,6 @@ function Page() {
     }));
 
     const [questions, setQuestions] = useState(correctedData)
-    
-    useEffect(() => {
-        setQuestions(correctedData)
-    }, [restart])
 
     function makeAnswer(arr) {
         const newArr = []
@@ -105,7 +100,7 @@ function Page() {
     function restartGame() {
         setChecked(old => !old)
         setCount(0)
-        setRestart(old => !old)
+        setQuestions(correctedData)
     }
 
     const displayQuestions = questions.map(el => {
