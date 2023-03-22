@@ -127,7 +127,6 @@ function Page() {
         })
         
         return (
-            <>
                 <div className="item" key={el.id}>
                     <h3 className="question">{el.question}</h3>
                     <div className="answers">
@@ -135,7 +134,6 @@ function Page() {
                     </div>
                     <hr />
                 </div>
-            </>
         )
     })
 
