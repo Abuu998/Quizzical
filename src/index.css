@@ -101,7 +101,6 @@ img {
     padding: 1rem 0;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     gap: 1.5rem;
 }
 
@@ -137,6 +136,54 @@ img {
     align-items: center;
     justify-content: center;
     gap: 3em;
+}
+
+
+.spinner,
+.spinner::before,
+.spinner::after {
+    width: 1.5em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.spinner {
+    position: relative;
+    margin-inline: auto;
+    background-color: hsla(0, 0%, 0%, .6);
+}
+
+.spinner::before,
+.spinner::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.spinner::after {
+    background-color: var(--btn);
+    animation: scale-after 500ms infinite ease;
+    z-index: -2;
+}
+
+.spinner::before {
+    z-index: -1;
+    animation: scale-before 500ms infinite ease;
+    background-color: var(--second);
+}
+
+@keyframes scale-after {
+    100% {
+        transform: scale(2.3);
+    }
+}
+
+@keyframes scale-before {
+    100% {
+        transform: scale(1.6);
+    }
 }
 
 @media screen and (max-width: 600px) {
