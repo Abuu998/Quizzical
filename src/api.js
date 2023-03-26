@@ -9,6 +9,12 @@ export async function getQuestions() {
             statusText: response.statusText
         }
     }
-    const data = await response.json()
-    return data.results
+
+    try {
+        const data = await response.json()
+        return data.results
+    }
+    catch(err) {
+        return { error: err }
+    }
 }
